@@ -28,7 +28,7 @@ jobs:
     # Build the Shadow-cljs project
     - name: Build project with Shadow-cljs
       run: |
-        npx shadow-cljs release app
+        npx shadow-cljs release frontend
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages

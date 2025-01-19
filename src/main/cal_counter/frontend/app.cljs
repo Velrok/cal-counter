@@ -17,11 +17,39 @@
 (defn reload []
   [:button {:on-click #(.reload js/location)} "reload"])
 
+(def min-calories
+  (r/atom (or (.getItem js/localStorage "min-calories") 2000)))
+
+(def max-calories
+  (r/atom (or (.getItem js/localStorage "max-calories") 2500)))
+
 (defn settings []
-  [:h2 "Settings"])
+  [:div
+   [:h2 "Settings"]
+   [:p "Target calorie min"]
+   [:input {:value @min-calories
+            :type "number"
+            :on-change (fn [event]
+                         (->> event
+                              .-target
+                              .-value
+                              (reset! min-calories)))}]
+   [:p "Target calorie max"]
+   [:input {:value @max-calories
+            :type "number"
+            :on-change (fn [event]
+                         (->> event
+                              .-target
+                              .-value
+                              (reset! max-calories)))}]
+   [:button {:on-click
+             (fn []
+               (.setItem js/localStorage "min-calories" @min-calories)
+               (.setItem js/localStorage "max-calories" @max-calories))}
+    "Save"]])
 
 (def main-stage
-  (r/atom reload))
+  (r/atom settings))
 
 (defn tabs []
   [:div {:style {:display "grid"

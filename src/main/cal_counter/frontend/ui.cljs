@@ -23,3 +23,23 @@
                   :margin-right "0.1em"
                   :display "inline-block"}}]
    "CalCounter"])
+
+(defn entry-as-paragraph [{:keys [amount measure ingredient-name calories]}]
+  (let [style {:style {:font-weight :bold}}]
+    [:p
+     {:on-click (fn []) ;; replace element with edit view
+      }
+     [:span.amount style amount] " "
+     [:span.measure style (if (= measure :unit)
+                            ""
+                            (str (name measure) " of "))]
+     [:span.ingredient-name style ingredient-name] " "
+     "calories: "  [:span.calories style calories]]))
+
+(defn entry-edit [{:keys [amount measure ingredient-name calories]}]
+  ;; todo
+  )
+
+(defn entry-new []
+  ;; todo
+  )

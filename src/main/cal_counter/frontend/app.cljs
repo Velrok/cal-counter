@@ -14,12 +14,13 @@
 
    [:p
     [ui/input
-     {:label  "Target calorie min"
+     {:label "Target calorie min"
       :atom state/min-calories}]
 
     [ui/input
-     {:label  "Target calorie max"
+     {:label "Target calorie max"
       :atom state/max-calories}]
+
     [:button {:on-click
               (fn []
                 (state/save-min-calories)
@@ -47,15 +48,8 @@
   [:div
    [:h2 "Log Food"]
    [:div.entries
-    (let [style {:style {:font-weight :bold}}]
-      (for [{:keys [amount measure ingredient-name calories]} entries]
-        [:p
-         [:span.amount style amount] " "
-         [:span.measure style (if (= measure :unit)
-                                ""
-                                (str (name measure) " of "))]
-         [:span.ingredient-name style ingredient-name] " "
-         "calories: "  [:span.calories style calories]]))]])
+    (for [entry entries]
+      (ui/entry-as-paragraph entry))]])
 
 (def main-stage
   (r/atom log-food))

@@ -3,18 +3,12 @@
   "name": "Calorie counter",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/img/icon.png",
       "type": "image/png",
-      "sizes": "192x192"
     },
-    {
-      "src": "/icons/icon-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
   ],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000"
+  "background_color": "#4CAF50",
+  "theme_color": "#FFFFFF
 }

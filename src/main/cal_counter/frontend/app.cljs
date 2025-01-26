@@ -18,8 +18,8 @@
    [ui/input state/max-calories]
    [:button {:on-click
              (fn []
-               (.setItem js/localStorage "min-calories" @state/min-calories)
-               (.setItem js/localStorage "max-calories" @state/max-calories))}
+               (state/save-min-calories)
+               (state/save-max-calories))}
     "Save"]])
 
 (def main-stage

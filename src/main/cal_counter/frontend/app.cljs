@@ -1,7 +1,8 @@
 (ns cal-counter.frontend.app
   (:require [reagent.core :as r]
             ["react" :as react]
-            ["react-dom/client" :as react-dom]))
+            ["react-dom/client" :as react-dom]
+            [cal-counter.frontend.ui :as ui]))
 
 ; (def male-daily-min 1700)
 ; (def male-daily-maintain 2200)
@@ -13,9 +14,6 @@
 
 (defn cal-progress-day [{:keys [cals label]}]
   (cal-progress {:cals cals :label label}))
-
-(defn reload []
-  [:button {:on-click #(.reload js/location)} "reload"])
 
 (def min-calories
   (r/atom (or (.getItem js/localStorage "min-calories") 2000)))
@@ -55,7 +53,7 @@
   [:div {:style {:display "grid"
                  :grid-template-columns "1fr 1fr"
                  :grid-template-rows "100%"}}
-   [:button {:on-click (fn [] (reset! main-stage reload))} "Counter"]
+   [:button {:on-click (fn [] (reset! main-stage ui/reload))} "Counter"]
    [:button {:on-click (fn [] (reset! main-stage settings))} "Settings"]])
 
 (defn app []

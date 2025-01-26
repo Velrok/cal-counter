@@ -1,5 +1,5 @@
 (ns cal-counter.frontend.state
-(:require [reagent.core :as r]))
+  (:require [reagent.core :as r]))
 
 (def min-calories
   (r/atom (or (.getItem js/localStorage "min-calories") 2000)))

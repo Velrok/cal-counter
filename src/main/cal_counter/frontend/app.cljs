@@ -12,21 +12,10 @@
   [:div
    [:h2 "Settings"]
    [:p "Target calorie min"]
-   [:input {:value @state/min-calories
-            :type "number"
-            :on-change (fn [event]
-                         (->> event
-                              .-target
-                              .-value
-                              (reset! state/min-calories)))}]
+   [ui/input state/min-calories]
+              
    [:p "Target calorie max"]
-   [:input {:value @state/max-calories
-            :type "number"
-            :on-change (fn [event]
-                         (->> event
-                              .-target
-                              .-value
-                              (reset! state/max-calories)))}]
+   [ui/input state/max-calories]
    [:button {:on-click
              (fn []
                (.setItem js/localStorage "min-calories" @state/min-calories)

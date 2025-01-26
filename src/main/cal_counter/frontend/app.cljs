@@ -12,27 +12,59 @@
   [:div
    [:h2 "Settings"]
 
-   [ui/input
-    {:label  "Target calorie min"
-     :atom state/min-calories}]
+   [:p
+    [ui/input
+     {:label  "Target calorie min"
+      :atom state/min-calories}]
 
-   [ui/input
-    {:label  "Target calorie max"
-     :atom state/max-calories}]
-   [:button {:on-click
-             (fn []
-               (state/save-min-calories)
-               (state/save-max-calories))}
-    "Save"]])
+    [ui/input
+     {:label  "Target calorie max"
+      :atom state/max-calories}]
+    [:button {:on-click
+              (fn []
+                (state/save-min-calories)
+                (state/save-max-calories))}
+     "Save"]]
+
+   [:p
+    [ui/reload]]])
+
+(def entries
+  [{:amount 1
+    :measure :link
+    :ingredient-name "chorizo"
+    :calories 100}
+   {:amount 80
+    :measure :grams
+    :ingredient-name "mayonaise"
+    :calories 150}
+   {:amount 1
+    :measure :unit
+    :ingredient-name "peper"
+    :calories 5}])
+
+(defn log-food []
+  [:div
+   [:h2 "Log Food"]
+   [:div.entries
+    (let [style {:style {:font-weight :bold}}]
+      (for [{:keys [amount measure ingredient-name calories]} entries]
+        [:p
+         [:span.amount style amount] " "
+         [:span.measure style (if (= measure :unit)
+                                ""
+                                (str (name measure) " of "))]
+         [:span.ingredient-name style ingredient-name] " "
+         "calories: "  [:span.calories style calories]]))]])
 
 (def main-stage
-  (r/atom settings))
+  (r/atom log-food))
 
 (defn tabs []
   [:div {:style {:display "grid"
                  :grid-template-columns "1fr 1fr"
                  :grid-template-rows "100%"}}
-   [:button {:on-click (fn [] (reset! main-stage ui/reload))} "Counter"]
+   [:button {:on-click (fn [] (reset! main-stage log-food))} "Log Food"]
    [:button {:on-click (fn [] (reset! main-stage settings))} "Settings"]])
 
 (defn app []

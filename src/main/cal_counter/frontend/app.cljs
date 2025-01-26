@@ -1,6 +1,6 @@
 (ns cal-counter.frontend.app
   (:require [reagent.core :as r]
-            ["react" :as react]
+            ; ["react" :as react]
             ["react-dom/client" :as react-dom]
             [cal-counter.frontend.ui :as ui]
             [cal-counter.frontend.state :as state]))
@@ -11,11 +11,14 @@
 (defn settings []
   [:div
    [:h2 "Settings"]
-   [:p "Target calorie min"]
-   [ui/input state/min-calories]
-              
-   [:p "Target calorie max"]
-   [ui/input state/max-calories]
+
+   [ui/input
+    {:label  "Target calorie min"
+     :atom state/min-calories}]
+
+   [ui/input
+    {:label  "Target calorie max"
+     :atom state/max-calories}]
    [:button {:on-click
              (fn []
                (state/save-min-calories)
@@ -37,11 +40,10 @@
                  :grid-template-columns "100%"
                  :grid-template-rows "4em 1fr 60px"
                  :height "97vh"}}
-   [:h1 "CalCounter"]
+   [ui/app-title]
    [@main-stage]
    [tabs]])
 
 (defn init []
-  (println "innit")
   (let [root (react-dom/createRoot (.getElementById js/document "root"))]
     (.render root (r/as-element [app]))))

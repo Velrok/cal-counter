@@ -37,11 +37,11 @@
     :calories 100}
    {:amount 80
     :measure :grams
-    :ingredient-name "mayonaise"
+    :ingredient-name "mayonnaise"
     :calories 150}
    {:amount 1
     :measure :unit
-    :ingredient-name "peper"
+    :ingredient-name "pepper"
     :calories 5}])
 
 (defn log-food []

@@ -3,6 +3,15 @@
 (defn reload []
   [:button {:on-click #(.reload js/location)} "reload"])
 
+(defn add-banana-button [{:keys [atom]}]
+  [:button {:on-click #(swap! atom
+                              conj
+                              {:amount 12
+                               :measure :unit
+                               :ingredient-name "Banana"
+                               :calories 300})}
+   "add banana"])
+
 (defn input [{:keys [atom label]}]
   [:p
    [:span {:style {:margin-right "1em"}} label]

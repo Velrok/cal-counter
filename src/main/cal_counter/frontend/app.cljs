@@ -38,7 +38,8 @@
     (for [entry @state/food-entries]
       (do
         (println entry)
-        (ui/entry-as-paragraph entry)))]])
+        (ui/entry-as-paragraph entry)))]
+   [:p [ui/add-banana-button {:atom state/food-entries}]]])
 
 (def main-stage
   (r/atom log-food))

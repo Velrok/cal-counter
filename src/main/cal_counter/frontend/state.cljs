@@ -16,12 +16,18 @@
 (defn save-max-calories []
   (.setItem js/localStorage "max-calories" @max-calories))
 
-(def food-entries
-  (r/atom (or (.getItem js/localStorage "food-entries")
-          [])))
-
-(defn write-food-entries []
-  (prn-str (.setItem js/localStorage "food-entries" @food-entries)))
-
 (defn read-food-entries []
   (edn/read-string (.getItem js/localStorage "food-entries")))
+
+(defn write-food-entries [entries]
+  (prn-str (.setItem js/localStorage "food-entries" entries)))
+
+(def food-entries
+  (r/atom (or (read-food-entries)
+              [])))
+
+(add-watch food-entries
+           :write-food-entries
+           (fn [_key _atom _old new]
+             (println "Saving all them bananas!")
+             (write-food-entries new)))

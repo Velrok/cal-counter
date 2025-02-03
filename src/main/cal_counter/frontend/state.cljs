@@ -3,12 +3,13 @@
             [clojure.edn :as edn]))
 
 (def min-calories
-  (r/atom (or (.getItem js/localStorage "min-calories") 
+  (r/atom (or (.getItem js/localStorage "min-calories")
               2000)))
 
 (def max-calories
-  (r/atom (or (.getItem js/localStorage "max-calories") 
-              2500)))
+  (let [store-key   "max-calories"
+        stored-item (.getItem js/localStorage store-key)]
+    (r/atom (or stored-item 2500))))
 
 (defn save-min-calories []
   (.setItem js/localStorage "min-calories" @min-calories))
@@ -17,10 +18,14 @@
   (.setItem js/localStorage "max-calories" @max-calories))
 
 (defn read-food-entries []
-  (edn/read-string (.getItem js/localStorage "food-entries")))
+  (-> js/localStorage
+      (.getItem "food-entries")
+      (edn/read-string)))
 
 (defn write-food-entries [entries]
-  (prn-str (.setItem js/localStorage "food-entries" entries)))
+  (->> entries
+       prn-str
+       (.setItem js/localStorage "food-entries")))
 
 (def food-entries
   (r/atom (or (read-food-entries)

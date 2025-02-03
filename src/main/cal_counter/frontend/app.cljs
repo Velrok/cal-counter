@@ -3,8 +3,7 @@
             ; ["react" :as react]
             ["react-dom/client" :as react-dom]
             [cal-counter.frontend.ui :as ui]
-            [cal-counter.frontend.state :as state]
-            ))
+            [cal-counter.frontend.state :as state]))
 
 ; (def male-daily-min 1700)
 ; (def male-daily-maintain 2200)
@@ -61,10 +60,8 @@
    [tabs]])
 
 (defn init []
-  (state/write-food-entries)
   (let [root (react-dom/createRoot (.getElementById js/document "root"))]
     (.render root (r/as-element [app]))))
-
 
 ; read:(get string from local storage - convert from string)
 ; write:(add to array - convert array to string - send to local storage)
